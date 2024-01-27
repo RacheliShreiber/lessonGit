@@ -1,0 +1,85 @@
+<div class="card" *ngIf="student else noStudent">
+
+  <form [formGroup]="studentForm">
+
+
+    <div class="mb-3 cared-body">
+      <label for="name" class="form-label">student name:</label>
+      <input type="text" class="form-input" id="name" formControlName="name">
+
+      <ng-container *ngIf="studentForm.controls['name'].errors">
+        <div class="alert alert-danger" *ngIf="studentForm.controls['name'].errors['required']">
+          this field is required!
+        </div>
+        <div class="alert alert-danger" *ngIf="studentForm.controls['name'].errors['maxLength']">
+          the max length is 9!
+        </div>
+      </ng-container>
+
+    </div>
+
+    <div class="mb-3 cared-body">
+      <label for="address" class="form-label">student address:</label>
+      <input type="text" class="form-input" id="address" formControlName="address">
+
+
+      <ng-container *ngIf="studentForm.controls['address'].errors">
+        <div class="alert alert-danger" *ngIf="studentForm.controls['address'].errors['required']">
+          this field is required!
+        </div>
+        <div class="alert alert-danger" *ngIf="studentForm.controls['address'].errors['minLength']">
+          the min length is 4!
+        </div>
+      </ng-container>
+
+    </div>
+    <div class="mb-3">
+      <label for="maslul" class="form-label">maslul</label>
+      <select class="form-input" formControlName="maslul">
+        <option *ngFor="let m of maslul" value="m.id">{{m.name}}</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="yearl">year of learn</label>
+      <br>
+      <input type="radio" value="yearType.year1" formControlName="yearl" />year1
+      <br>
+      <input type="radio" value="yearType.year2" formControlName="yearl" />year2
+      <br>
+      <input type="radio" value="yearType.year3" formControlName="yearl" />year3
+    </div>
+
+    <div [ngSwitch]="studentForm.controls['yearl'].value">
+      <div *ngSwitchCase="'yearType.year1'">
+        the number of days you need to learn are: 156.
+
+      </div>
+      <div *ngSwitchCase="'yearType.year2'">
+        the number of days you need to learn are: 140.
+
+      </div>
+      <div *ngSwitchCase="'yearType.year3'">
+        the number of days you need to learn are: 80.
+
+      </div>
+
+    </div>
+    <div class="mb-3 cared-body">
+      <label for="absenceD" class="form-label">number of days you absent:</label>
+      <input #A type="number" class="form-input" id="absenceD" (change)="updateA($event)">
+    </div>
+    <div class="mb-3 cared-body">
+      <label for="dateA" class="form-label">date of day of absence:</label>
+      <input type="date" class="form-input" id="dateA" (change)="updateDate($event)">
+    </div>
+
+    <button class="btn btn-primary" (click)="saveNewStudent()" [disabled]="!studentForm?.valid">save</button>
+  </form>
+
+</div>
+<ng-template #noStudent>
+  <div class="card">
+    no student to display!
+  </div>
+
+</ng-template>

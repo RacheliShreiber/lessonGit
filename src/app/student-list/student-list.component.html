@@ -1,0 +1,30 @@
+<ul class="list-group">
+    <li *ngFor="let student of students" class="list-group-item success" [ngClass]="{'active':student.active==false,
+     'list-group-item-success':student.avgMark>90}">
+        <div class="row">
+        <div class="col-1">{{student.id}}</div>
+        <div class="col-3">{{student.name}}</div>
+        <div class="col-2">
+            <button (click)="showDetails(student)">details</button>
+            </div>
+        <div class="col-2">
+        <button (click)="deleteStudent(student)">delete student</button>
+        </div>
+        <!-- <div class="col-2" *ngIf="student.absence">{{student.absence[0].daysAbsence}}</div> -->
+        <!-- <div class="col-2" *ngIf="student.absence">{{student.absence[0].startAbsence}}</div> -->
+  
+    <div class="col-2" *ngIf="student.absence">{{totalAbsence(student.id)}}</div>
+    </div>
+    
+    </li>
+</ul>
+
+<br>
+
+
+    <button class="btn btn-primary" (click)="addNewStudent()">add student</button>
+    
+    <!-- <app-student-details [student]="selectedStudent" ></app-student-details> -->
+    <app-student-details-form-md [student]="selectedStudent" (onSaveStudent)="saveStudentToList($event)"></app-student-details-form-md>
+<!-- {{student.id}}:{{student.name}}:{{student.add';ljkhfgdsYUERress}}:{{student.phone}}:
+        {{student.active}}:{{student.avgMark}} -->
